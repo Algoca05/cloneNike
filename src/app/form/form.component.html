@@ -35,9 +35,18 @@
     <label for="productType" class="block mb-2">Tipo de producto</label>
     <select id="productType" formControlName="productType" class="w-full p-2 border border-gray-300 rounded">
       <option value="" disabled selected>Select a type</option>
-      <option value="type1">Type 1</option>
-      <option value="type2">Type 2</option>
-      <option value="type3">Type 3</option>
+    <option value="calzado_correr_hombre">Calzado Correr Hombre</option>
+    <option value="calzado_correr_mujer">Calzado Correr Mujer</option>
+    <option value="calzado_vestir_hombre">Calzado Vestir Hombre</option>
+    <option value="calzado_vestir_mujer">Calzado Vestir Mujer</option>
+    <option value="calzado_montaña_hombre">Calzado Montaña Hombre</option>
+    <option value="calzado_montaña_mujer">Calzado Montaña Mujer</option>
+    <option value="calzado_futbol_hombre">Calzado Futbol Hombre</option>
+    <option value="calzado_futbol_mujer">Calzado Futbol Mujer</option>
+    <option value="calzado_basquet_hombre">Calzado Basquet Hombre</option>
+    <option value="calzado_basquet_mujer">Calzado Basquet Mujer</option>
+    <option value="Otro">Otro</option>
+
     </select>
     <div *ngIf="form.get('productType')!.invalid && form.get('productType')!.touched">
       <small class="text-red-500">{{ getErrorMessage('productType') }}</small>
