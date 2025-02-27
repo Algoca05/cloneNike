@@ -67,7 +67,24 @@ export class FormComponent {
       this.form.patchValue({
         productImage: file
       });
+      this.saveFile(file);
     }
+  }
+
+  saveFile(file: File) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const arrayBuffer = reader.result as ArrayBuffer;
+      const blob = new Blob([arrayBuffer], { type: file.type });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      const referenceNumber = this.form.get('referenceNumber')?.value || 'default';
+      link.download = `${referenceNumber}.${file.name.split('.').pop()}`;
+      link.click();
+      URL.revokeObjectURL(url);
+    };
+    reader.readAsArrayBuffer(file);
   }
 
   onSubmit() {
