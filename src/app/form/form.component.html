@@ -60,7 +60,7 @@
 
   <div class="mb-4">
     <label for="productImage" class="block mb-2">Imagen del producto</label>
-    <input id="productImage" type="file" (change)="onFileChange($event)" class="w-full p-2 border border-gray-300 rounded" accept="image/*">
+    <input id="productImage" formControlName="productImage" class="w-full p-2 border border-gray-300 rounded">
     <div *ngIf="form.get('productImage')!.invalid && form.get('productImage')!.touched">
       <small class="text-red-500">{{ getErrorMessage('productImage') }}</small>
     </div>

@@ -61,15 +61,7 @@ export class FormComponent {
     return '';
   }
 
-  onFileChange(event: any) {
-    const file = event.target.files[0];
-    if (file) {
-      this.form.patchValue({
-        productImage: file
-      });
-      this.saveFile(file);
-    }
-  }
+  
 
   saveFile(file: File) {
     const reader = new FileReader();
