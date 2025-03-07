@@ -7,7 +7,7 @@
       <p class="mb-2"><strong>Description:</strong> {{ product.description }}</p>
       <p class="mb-2"><strong>Type:</strong> {{ product.productType }}</p>
       <p class="mb-2"><strong>On Sale:</strong> <span class="text-green-500">{{ product.onSale ? 'Yes' : 'No' }}</span></p>
-      <img src="http://172.17.26.4:3000/images/{{ product.productImage }}.png" alt="{{ product.productName }}" class="w-full h-48 object-cover rounded-lg mt-4">
+      <img src="http://192.168.1.141:80/{{ product.productImage }}.png" alt="{{ product.productName }}" class="w-full  object-cover rounded-lg mt-4 w-48 h-64">
       <button (click)="editProduct(product.referenceNumber)" class="mt-4 p-2 bg-yellow-500 text-white rounded hover:bg-yellow-600">Edit</button>
     </article>
   </div>
