@@ -13,4 +13,15 @@ export class AddProductsService {
   getProducts() {
     return this.products;
   }
+
+  getProductByReferenceNumber(referenceNumber: string) {
+    return this.products.find(product => product.referenceNumber === referenceNumber);
+  }
+
+  updateProduct(updatedProduct: any) {
+    const index = this.products.findIndex(product => product.referenceNumber === updatedProduct.referenceNumber);
+    if (index !== -1) {
+      this.products[index] = updatedProduct;
+    }
+  }
 }

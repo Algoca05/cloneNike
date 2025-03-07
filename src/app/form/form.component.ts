@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AddProductsService } from '../add-products.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-form',
@@ -37,7 +38,7 @@ export class FormComponent {
     }
   };
 
-  constructor(private fb: FormBuilder, private addProductsService: AddProductsService) {
+  constructor(private fb: FormBuilder, private addProductsService: AddProductsService, private route: ActivatedRoute) {
     this.form = this.fb.group({
       referenceNumber: ['', [Validators.required]],
       productName: ['', [Validators.required, Validators.minLength(3)]],
@@ -46,6 +47,13 @@ export class FormComponent {
       productType: ['', [Validators.required]],
       onSale: [false],
       productImage: [null, [Validators.required]]
+    });
+
+    this.route.queryParams.subscribe(params => {
+      const referenceNumber = params['referenceNumber'];
+      if (referenceNumber) {
+        this.loadProduct(referenceNumber);
+      }
     });
   }
 
@@ -61,7 +69,12 @@ export class FormComponent {
     return '';
   }
 
-  
+  loadProduct(referenceNumber: string) {
+    const product = this.addProductsService.getProductByReferenceNumber(referenceNumber);
+    if (product) {
+      this.form.patchValue(product);
+    }
+  }
 
   saveFile(file: File) {
     const reader = new FileReader();
@@ -81,7 +94,12 @@ export class FormComponent {
 
   onSubmit() {
     if (this.form.valid) {
-      this.addProductsService.addProduct(this.form.value);
+      const referenceNumber = this.form.get('referenceNumber')?.value;
+      if (this.addProductsService.getProductByReferenceNumber(referenceNumber)) {
+        this.addProductsService.updateProduct(this.form.value);
+      } else {
+        this.addProductsService.addProduct(this.form.value);
+      }
       this.form.reset();
     } else {
       console.log('Form not valid');
