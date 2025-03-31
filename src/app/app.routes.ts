@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
-import { ContentComponent } from './content/content.component';
-import { ProductsComponent } from './products/products.component';
-import { FormComponent } from './form/form.component';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
+import { ContentComponent } from './components/content/content.component';
+import { ProductsComponent } from './components/products/products.component';
+import { FormComponent } from './components/form/form.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
 import { middlewareGuard } from './middleware.guard';
 
 export const routes: Routes = [
