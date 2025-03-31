@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -9,5 +10,8 @@ import { RouterLink } from '@angular/router';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent {
-
+  constructor(private router: Router) {}
+  redirectToLogin() {
+    this.router.navigate(['/login']);
+  }
 }
