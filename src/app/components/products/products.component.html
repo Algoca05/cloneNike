@@ -1,0 +1,14 @@
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
+  <div *ngFor="let product of products" class="border rounded-lg shadow-lg p-6 bg-white flex flex-col justify-between">
+    <article class="flex flex-col h-full">
+      <h2 class="text-2xl font-bold mb-2">{{ product.productName }}</h2>
+      <p class="mb-2"><strong>Reference Number:</strong> {{ product.referenceNumber }}</p>
+      <p class="mb-2"><strong>Price:</strong> {{ product.price }}€</p>
+      <p class="mb-2"><strong>Description:</strong> {{ product.description }}</p>
+      <p class="mb-2"><strong>Type:</strong> {{ product.productType }}</p>
+      <p class="mb-2"><strong>On Sale:</strong> <span class="text-green-500">{{ product.onSale ? 'Yes' : 'No' }}</span></p>
+      <img src="http://192.168.1.141:80/{{ product.productImage }}.png" alt="{{ product.productName }}" class="w-full  object-cover rounded-lg mt-4 w-48 h-64">
+      <button (click)="editProduct(product.referenceNumber)" class="mt-4 p-2 bg-yellow-500 text-white rounded hover:bg-yellow-600">Edit</button>
+    </article>
+  </div>
+</div>
