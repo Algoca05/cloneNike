@@ -7,7 +7,11 @@
       <p class="mb-2"><strong>Description:</strong> {{ product.description }}</p>
       <p class="mb-2"><strong>Type:</strong> {{ product.productType }}</p>
       <p class="mb-2"><strong>On Sale:</strong> <span class="text-green-500">{{ product.onSale ? 'Yes' : 'No' }}</span></p>
-      <img src="http://192.168.1.141:80/{{ product.productImage }}.png" alt="{{ product.productName }}" class="w-full  object-cover rounded-lg mt-4 w-48 h-64">
+      <img src="http://192.168.1.141:80/{{ product.productImage }}.png" alt="{{ product.productName }}" class="w-full object-cover rounded-lg mt-4 w-48 h-64">
+      <div class="flex items-center mt-2">
+        <input type="number" min="1" [value]="1" #quantityInput class="w-16 border rounded p-1 mr-2">
+        <button (click)="buyProduct(product, quantityInput.value)" class="p-2 bg-green-500 text-white rounded hover:bg-green-600">Comprar</button>
+      </div>
       <button (click)="editProduct(product.referenceNumber)" class="mt-4 p-2 bg-yellow-500 text-white rounded hover:bg-yellow-600">Edit</button>
     </article>
   </div>

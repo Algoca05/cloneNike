@@ -1,30 +1,37 @@
-import { Component, OnInit, DoCheck } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common'; // <-- se agrega CommonModule
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-nav',
   standalone: true, 
-  imports: [RouterLink], 
+  imports: [RouterLink, CommonModule], // <-- se incluye CommonModule aquí
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.css']
 })
-export class NavComponent implements OnInit, DoCheck {
-  isAdmin: boolean = false;
-  
-  constructor(private router: Router) {}
+export class NavComponent {
+  // Always allow access to admin
+  isAdmin: boolean = true;
+  isCartModalOpen: boolean = false;
+  cartItems: any[] = [];
 
-  ngOnInit() {
-    // Initial check
-    this.isAdmin = localStorage.getItem('userRole') === 'admin';
+  constructor(private router: Router, private cartService: CartService) {
+    this.cartItems = this.cartService.getItems();
   }
-  
-  ngDoCheck() {
-    // Re-check on each change detection cycle
-    this.isAdmin = localStorage.getItem('userRole') === 'admin';
-  }
-  
+
   redirectToLogin() {
     this.router.navigate(['/login']);
+  }
+  
+  openCartModal() {
+    this.cartItems = this.cartService.getItems();
+    console.log('Cart Items:', this.cartItems); // Debug: muestra los items en consola
+    this.isCartModalOpen = true;
+  }
+
+  closeCartModal() {
+    this.isCartModalOpen = false;
   }
 }
