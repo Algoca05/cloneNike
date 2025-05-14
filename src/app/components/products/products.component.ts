@@ -13,10 +13,16 @@ import { CartService } from '../../services/cart.service';
 export class ProductsComponent implements OnInit {
   products: any[] = [];
 
-  constructor(private addProductsService: AddProductsService, private router: Router, private cartService: CartService) {}
+  constructor(
+    private addProductsService: AddProductsService,
+    private router: Router,
+    private cartService: CartService
+  ) {}
 
   ngOnInit() {
-    this.products = this.addProductsService.getProducts();
+    this.addProductsService.getProducts().subscribe(products => {
+      this.products = products;
+    });
   }
 
   editProduct(referenceNumber: string) {
@@ -26,7 +32,8 @@ export class ProductsComponent implements OnInit {
   buyProduct(product: any, quantity: string) {
     const qty = parseInt(quantity, 10) || 1;
     const productToAdd = { ...product, quantity: qty };
-    this.cartService.addToCart(productToAdd);
-    alert(`${product.productName} añadido (${qty})`);
+    this.cartService.addToCart(productToAdd).subscribe(() => {
+      alert(`${product.productName} añadido (${qty})`);
+    });
   }
 }

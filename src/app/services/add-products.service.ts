@@ -1,27 +1,26 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AddProductsService {
-  private products: any[] = [];
+  private apiUrl = 'http://192.168.1.141:80/products';
 
-  addProduct(product: any) {
-    this.products.push(product);
+  constructor(private http: HttpClient) {}
+
+  getProducts(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl);
   }
 
-  getProducts() {
-    return this.products;
+  addProduct(product: any): Observable<any> {
+    return this.http.post(this.apiUrl, product);
   }
 
-  getProductByReferenceNumber(referenceNumber: string) {
-    return this.products.find(product => product.referenceNumber === referenceNumber);
+  updateProduct(product: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${product.referenceNumber}`, product);
   }
 
-  updateProduct(updatedProduct: any) {
-    const index = this.products.findIndex(product => product.referenceNumber === updatedProduct.referenceNumber);
-    if (index !== -1) {
-      this.products[index] = updatedProduct;
-    }
-  }
+  // Para obtener un producto por referencia, se puede obtener la lista y filtrar en el componente
 }
