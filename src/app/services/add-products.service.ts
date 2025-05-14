@@ -22,5 +22,9 @@ export class AddProductsService {
     return this.http.put(`${this.apiUrl}/${product.referenceNumber}`, product);
   }
 
+  getProductByReferenceNumber(referenceNumber: string): Observable<any> {
+    return this.http.get<any>(`/api/products/${referenceNumber}`);
+  }
+
   // Para obtener un producto por referencia, se puede obtener la lista y filtrar en el componente
 }

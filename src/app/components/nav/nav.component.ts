@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common'; // <-- se agrega CommonModule
@@ -11,14 +11,18 @@ import { CartService } from '../../services/cart.service';
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.css']
 })
-export class NavComponent {
+export class NavComponent implements OnInit {
   // Always allow access to admin
   isAdmin: boolean = true;
   isCartModalOpen: boolean = false;
   cartItems: any[] = [];
 
-  constructor(private router: Router, private cartService: CartService) {
-    this.cartItems = this.cartService.getItems();
+  constructor(private router: Router, private cartService: CartService) {}
+
+  ngOnInit(): void {
+    this.cartService.getItems().subscribe(items => {
+      this.cartItems = items;
+    });
   }
 
   redirectToLogin() {
@@ -26,7 +30,9 @@ export class NavComponent {
   }
   
   openCartModal() {
-    this.cartItems = this.cartService.getItems();
+    this.cartService.getItems().subscribe(items => {
+      this.cartItems = items;
+    });
     console.log('Cart Items:', this.cartItems); // Debug: muestra los items en consola
     this.isCartModalOpen = true;
   }
